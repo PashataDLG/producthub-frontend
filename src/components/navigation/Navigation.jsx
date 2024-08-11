@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+ 
 export const Navigation = () => {
     return (
         <div className="container-fluid">
@@ -19,34 +21,29 @@ export const Navigation = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item active">
-                            <a className="nav-link" href="index.html">
+                            <Link className="nav-link" to="/">
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="about.html">
+                            <Link className="nav-link" to="/about">
                                 About
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="coffees.html">
+                            <Link className="nav-link" to="/coffees">
                                 Coffees
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="shop.html">
-                                Shop
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="blog.html">
+                            <Link className="nav-link" to="/blog">
                                 Blog
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="contact.html">
+                            <Link className="nav-link" to="/contact">
                                 Contact
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <form className="form-inline my-2 my-lg-0">
