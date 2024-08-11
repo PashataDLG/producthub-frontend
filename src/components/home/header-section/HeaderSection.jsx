@@ -1,5 +1,7 @@
-export const Banner = () => {
-    return (<div className="banner_section layout_padding">
+export const HeaderSection = () => {
+    return (
+        <div className="header_section">
+            <div className="banner_section layout_padding">
         <div className="container">
             <div id="banner_slider" className="carousel slide" data-ride="carousel">
                 <div className="carousel-inner">
@@ -88,5 +90,7 @@ export const Banner = () => {
 
             </div>
         </div>
-    </div>);
+    </div>
+        </div>
+    );
 };

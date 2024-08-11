@@ -1,23 +1,15 @@
-import { AboutSection } from "./components/about-section/AboutSection"
-import { BlogSection } from "./components/blog-section/BlogSection"
-import { ClientSection } from "./components/client-section/ClientSection"
-import { CoffeeSection } from "./components/coffee-section/CoffeeSection"
-import { ContactSection } from "./components/contact-section/ContactSection"
-import { CopyrightSection } from "./components/copyright-section/CopyrightSection"
-import { FooterSection } from "./components/footer-section/FooterSection"
-import { HeaderSection } from "./components/header-section/HeaderSection"
+import { Navigation } from "./components/navigation/Navigation"
+import { Home } from "./components/home/Home"
+import { Footer } from "./components/footer/Footer"
+import { Copyright } from "./components/copyright/Copyright"
 
 function App() {
     return (
         <>
-            <HeaderSection />
-            <CoffeeSection />
-            <AboutSection />
-            <ClientSection />
-            <BlogSection />
-            <ContactSection />
-            <FooterSection />
-            <CopyrightSection />
+            <Navigation />
+            <Home />
+            <Footer />
+            <Copyright />
         </>
     )
 }

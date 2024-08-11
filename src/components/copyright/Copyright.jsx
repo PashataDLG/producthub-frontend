@@ -1,4 +1,4 @@
-export const CopyrightSection = () => {
+export const Copyright = () => {
     return (
         <div className="copyright_section">
             <div className="container">

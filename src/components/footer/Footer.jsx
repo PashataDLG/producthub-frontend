@@ -1,4 +1,4 @@
-export const FooterSection = () => {
+export const Footer = () => {
     return (
         <div className="footer_section layout_padding">
             <div className="container">
