@@ -7,6 +7,7 @@ import { About } from './components/about/About';
 import { Blog } from './components/blog/Blog';
 import { Coffees } from './components/coffees/Coffees';
 import { Contact } from './components/contact/Contact';
+import { Login } from './components/login/Login';
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <main>
                 <Routes>
                     <Route path='/' element={<Home />} />
+                    <Route path='/login' element={<Login />} />
                     <Route path='/about' element={<About />} />
                     <Route path='/blog' element={<Blog />} />
                     <Route path='/coffees' element={<Coffees />} />

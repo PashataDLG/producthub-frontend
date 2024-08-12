@@ -4,9 +4,9 @@ export const Navigation = () => {
     return (
         <div className="container-fluid">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="index.html">
+                <Link className="navbar-brand" to="/">
                     <img src="images/logo.png" />
-                </a>
+                </Link>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -50,18 +50,21 @@ export const Navigation = () => {
                         <div className="login_bt">
                             <ul>
                                 <li>
-                                    <a href="#">
+                                    <Link to="/login">
                                         <span className="user_icon">
                                             <i className="fa fa-user" aria-hidden="true" />
                                         </span>
                                         Login
-                                    </a>
+                                    </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <a href="#">
-                                        <i className="fa fa-search" aria-hidden="true" />
+                                        <span className="user_icon">
+                                            <i className="fa fa-user" aria-hidden="true" />
+                                        </span>
+                                        Logout
                                     </a>
-                                </li>
+                                </li> */} 
                             </ul>
                         </div>
                     </form>
