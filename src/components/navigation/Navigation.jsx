@@ -51,10 +51,15 @@ export const Navigation = () => {
                             <ul>
                                 <li>
                                     <Link to="/login">
-                                        <span className="user_icon">
+                                        {/* <span className="user_icon">
                                             <i className="fa fa-user" aria-hidden="true" />
-                                        </span>
+                                        </span> */}
                                         Login
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/register">
+                                        Register
                                     </Link>
                                 </li>
                                 {/* <li>
