@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Snackbar, Alert } from '@mui/material';
 
 const defaultTheme = createTheme();
 
@@ -22,18 +23,26 @@ export const Register = () => {
         password: ''
     });
 
+    const [open, setOpen] = useState(false);
+    const [alertSeverity, setAlertSeverity] = useState('sucess');
+    const [alertMessage, setAlertMessage] = useState('');
+
+
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         })
-    }
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        setAlertSeverity('success');
+        setAlertMessage('');
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
-        console.log(formData);
-        console.log(JSON.stringify(formData));
 
         try {
             const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/register', {
@@ -45,7 +54,8 @@ export const Register = () => {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                throw new Error(data.message);
             };
 
             setFormData({
@@ -55,9 +65,16 @@ export const Register = () => {
 
             const data = await response.json();
             console.log('Success: ', data);
-        } catch (error) {
-            console.error('There was an error with the request: ', error);
 
+            setAlertSeverity('success');
+            setAlertMessage(`Your have singed up successfully. You are welcome to log into your account!`);
+            setOpen(true);
+
+
+        } catch (error) {
+            setAlertSeverity('error');
+            setAlertMessage(`${error}`);
+            setOpen(true);
         }
     };
 
@@ -130,6 +147,16 @@ export const Register = () => {
                     </Box>
                 </Box>
             </Container>
+            <Snackbar
+                onClose={handleClose}
+                open={open}
+                autoHideDuration={10000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+            >
+                <Alert onClose={handleClose} severity={alertSeverity} sx={{ width: '100%' }}>
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </ThemeProvider>
     );
 }
