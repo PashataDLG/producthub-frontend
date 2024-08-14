@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -41,6 +41,8 @@ export const Register = () => {
         setAlertMessage('');
     };
 
+    const navigate = useNavigate();
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -70,6 +72,9 @@ export const Register = () => {
             setAlertMessage(`Your have singed up successfully. You are welcome to log into your account!`);
             setOpen(true);
 
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);
 
         } catch (error) {
             setAlertSeverity('error');
