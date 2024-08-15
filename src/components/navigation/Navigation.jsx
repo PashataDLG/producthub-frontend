@@ -1,6 +1,16 @@
+import { useEffect, useState } from 'react';
+
 import { Link } from 'react-router-dom';
- 
+
 export const Navigation = () => {
+    const [isToken, setIsToken] = useState(false);
+
+    useEffect(() => {
+        const item = localStorage.getItem('token');
+
+        setIsToken(item !== null);
+    }, []);
+
     return (
         <div className="container-fluid">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,27 +59,32 @@ export const Navigation = () => {
                     <form className="form-inline my-2 my-lg-0">
                         <div className="login_bt">
                             <ul>
-                                <li>
-                                    <Link to="/login">
-                                        {/* <span className="user_icon">
-                                            <i className="fa fa-user" aria-hidden="true" />
-                                        </span> */}
-                                        Login
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/register">
-                                        Register
-                                    </Link>
-                                </li>
-                                {/* <li>
-                                    <a href="#">
-                                        <span className="user_icon">
-                                            <i className="fa fa-user" aria-hidden="true" />
-                                        </span>
-                                        Logout
-                                    </a>
-                                </li> */} 
+                                {isToken ? (
+                                    <li>
+                                        <a href="#">
+                                            <span className="user_icon">
+                                                <i className="fa fa-user" aria-hidden="true" />
+                                            </span>
+                                            Logout
+                                        </a>
+                                    </li>
+                                ) : (
+                                    <>
+                                        <li>
+                                            <Link to="/login">
+                                                {/* <span className="user_icon">
+                                         <i className="fa fa-user" aria-hidden="true" />
+                                     </span> */}
+                                                Login
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to="/register">
+                                                Register
+                                            </Link>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
                     </form>
