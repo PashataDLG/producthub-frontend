@@ -4,7 +4,7 @@ export const useForm = (intialValues, onSubmitHandler) => {
     const [values, setValues] = useState(intialValues);
 
     const changeHandler = (e) => {
-        setValues((state) => ({...state, [e.taget.name]: e.target.value }));
+        setValues((state) => ({...state, [e.target.name]: e.target.value }));
     };
 
     const onSubmit = (e) => {
