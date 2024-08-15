@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAlert } from '../../hooks/useAlert';
+import { useForm } from '../../hooks/useForm';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,15 +15,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Snackbar, Alert } from '@mui/material';
-import { useAlert } from '../../hooks/useAlert';
 
 const defaultTheme = createTheme();
 
 export const Register = () => {
-    const [formData, setFormData] = useState({
-        username: '',
-        password: ''
-    });
 
     const {
         open,
@@ -34,17 +30,9 @@ export const Register = () => {
         closeAlert } = useAlert();
 
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        })
-    };
-
     const navigate = useNavigate();
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
+    const submitHandler = async () => {
 
         try {
             const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/register', {
@@ -52,7 +40,7 @@ export const Register = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(values)
             });
 
             if (!response.ok) {
@@ -60,10 +48,10 @@ export const Register = () => {
                 throw new Error(data.message);
             };
 
-            setFormData({
-                username: '',
-                password: ''
-            });
+            changeValues({
+                'username': '',
+                'password': ''
+            })
 
             const data = await response.json();
             console.log('Success: ', data);
@@ -83,6 +71,11 @@ export const Register = () => {
         }
     };
 
+    const { changeHandler, onSubmit, values, changeValues } = useForm({
+        'username': '',
+        'password': ''
+    }, submitHandler);
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -101,7 +94,7 @@ export const Register = () => {
                     <Typography component="h1" variant="h5">
                         Register Here
                     </Typography>
-                    <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
+                    <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <TextField
@@ -111,8 +104,8 @@ export const Register = () => {
                                     label="username"
                                     name="username"
                                     autoComplete="username"
-                                    value={formData.username}
-                                    onChange={handleChange}
+                                    value={values['username']}
+                                    onChange={changeHandler}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -123,8 +116,8 @@ export const Register = () => {
                                     label="password"
                                     type="password"
                                     id="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
+                                    value={values['password']}
+                                    onChange={changeHandler}
                                 />
                             </Grid>
                             <Grid item xs={12}>
