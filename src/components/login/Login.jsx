@@ -17,7 +17,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export const Login = () => {
-    const handleSubmit = async (e) => {
+    const handleSubmit = async () => {
 
         try {
             const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/login', {
