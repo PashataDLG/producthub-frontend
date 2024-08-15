@@ -1,3 +1,3 @@
 # React Exercise Project 
 
-This React project is designed as a practical exercise to apply and consolidate everything learned during Season 4 of the Sirma Academy. The primary goal of the project is to deepen understanding and mastery of React concepts, rather than focusing on styling or layout design. As such, the emphasis is placed on the functionality and core principles of React, with minimal attention given to visual presentation.
+This React project is designed as a practical exercise to apply and consolidate key concepts and skills learned throughout React training from Sirma Academy Season 4. The primary goal of the project is to deepen understanding and mastery of React concepts, rather than focusing on styling or layout design. As such, the emphasis is placed on the functionality and core principles of React, with minimal attention given to visual presentation.
