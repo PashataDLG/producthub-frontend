@@ -5,7 +5,7 @@ export const useAlert = () => {
     const [alertSeverity, setAlertSeverity] = useState('success');
     const [message, setMessage] = useState('');
 
-    const resetAlert = () => {
+    const closeAlert = () => {
         setOpen(false);
         setAlertSeverity('success');
         setMessage('');
@@ -18,6 +18,6 @@ export const useAlert = () => {
         setOpen,
         setAlertSeverity,
         setMessage,
-        resetAlert
+        closeAlert
     };
 };
