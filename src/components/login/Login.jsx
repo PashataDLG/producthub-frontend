@@ -1,22 +1,36 @@
 import { useForm } from '../../hooks/useForm';
 
+import { Link, useNavigate } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Snackbar, Alert } from '@mui/material';
+import { useAlert } from '../../hooks/useAlert';
+
 
 const defaultTheme = createTheme();
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const {
+        open,
+        alertSeverity,
+        message,
+        setOpen,
+        setAlertSeverity,
+        setMessage,
+        closeAlert } = useAlert();
+
     const handleSubmit = async () => {
 
         try {
@@ -27,16 +41,25 @@ export const Login = () => {
             });
 
             if (!response.ok) {
-                console.log(values);
                 const data = await response.json();
                 throw new Error(data.message);
             };
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            console.log(data.token)
+
+            setOpen(true);
+            setAlertSeverity('success');
+            setMessage('Successfully logged in!');
+
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
+
         } catch (error) {
-            console.error(error);
+            setAlertSeverity('error');
+            setMessage(`${error}`);
+            setOpen(true);
         }
     };
 
@@ -108,7 +131,7 @@ export const Login = () => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link to="/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -116,6 +139,16 @@ export const Login = () => {
                     </Box>
                 </Box>
             </Container>
+            <Snackbar
+                onClose={closeAlert}
+                open={open}
+                autoHideDuration={10000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert onClose={closeAlert} severity={alertSeverity} sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
         </ThemeProvider>
     );
 }
