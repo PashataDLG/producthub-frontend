@@ -23,8 +23,7 @@ export const Login = () => {
     }, handleSubmit);
 
     const handleSubmit = async (e, values) => {
-        e.preventDefault();
-
+        
         try {
             const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/login', {
                 method: 'POST',
@@ -56,7 +55,6 @@ export const Login = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
-                    onSubmit={onSubmit}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
@@ -64,7 +62,7 @@ export const Login = () => {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
