@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Snackbar, Alert } from '@mui/material';
+import { useAlert } from '../../hooks/useAlert';
 
 const defaultTheme = createTheme();
 
@@ -23,9 +24,14 @@ export const Register = () => {
         password: ''
     });
 
-    const [open, setOpen] = useState(false);
-    const [alertSeverity, setAlertSeverity] = useState('sucess');
-    const [alertMessage, setAlertMessage] = useState('');
+    const {
+        open,
+        alertSeverity,
+        message,
+        setOpen,
+        setAlertSeverity,
+        setMessage,
+        closeAlert } = useAlert();
 
 
     const handleChange = (e) => {
@@ -33,12 +39,6 @@ export const Register = () => {
             ...formData,
             [e.target.name]: e.target.value
         })
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-        setAlertSeverity('success');
-        setAlertMessage('');
     };
 
     const navigate = useNavigate();
@@ -69,7 +69,7 @@ export const Register = () => {
             console.log('Success: ', data);
 
             setAlertSeverity('success');
-            setAlertMessage(`Your have singed up successfully. You are welcome to log into your account!`);
+            setMessage(`Your have singed up successfully. You are welcome to log into your account!`);
             setOpen(true);
 
             setTimeout(() => {
@@ -78,7 +78,7 @@ export const Register = () => {
 
         } catch (error) {
             setAlertSeverity('error');
-            setAlertMessage(`${error}`);
+            setMessage(`${error}`);
             setOpen(true);
         }
     };
@@ -153,13 +153,13 @@ export const Register = () => {
                 </Box>
             </Container>
             <Snackbar
-                onClose={handleClose}
+                onClose={closeAlert}
                 open={open}
                 autoHideDuration={10000}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center'}}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert onClose={handleClose} severity={alertSeverity} sx={{ width: '100%' }}>
-                    {alertMessage}
+                <Alert onClose={closeAlert} severity={alertSeverity} sx={{ width: '100%' }}>
+                    {message}
                 </Alert>
             </Snackbar>
         </ThemeProvider>
