@@ -22,7 +22,7 @@ export const Login = () => {
         'password': ''
     }, handleSubmit);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e, values) => {
         e.preventDefault();
 
         try {
@@ -39,6 +39,7 @@ export const Login = () => {
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
+            
         } catch (error) {
             console.error(error);
         }
@@ -55,6 +56,7 @@ export const Login = () => {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
+                    onSubmit={onSubmit}
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <LockOutlinedIcon />
@@ -68,10 +70,12 @@ export const Login = () => {
                             required
                             fullWidth
                             id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
                             autoFocus
+                            value={values['username']}
+                            onChange={changeHandler}
                         />
                         <TextField
                             margin="normal"
@@ -82,6 +86,8 @@ export const Login = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            value={values['password']}
+                            onChange={changeHandler}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
