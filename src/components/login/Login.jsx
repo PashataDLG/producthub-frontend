@@ -17,13 +17,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const defaultTheme = createTheme();
 
 export const Login = () => {
-    const { changeHandler, onSubmit, values } = useForm({
-        'username': '',
-        'password': ''
-    }, handleSubmit);
+    const handleSubmit = async (e) => {
 
-    const handleSubmit = async (e, values) => {
-        
         try {
             const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/login', {
                 method: 'POST',
@@ -32,17 +27,24 @@ export const Login = () => {
             });
 
             if (!response.ok) {
+                console.log(values);
                 const data = await response.json();
                 throw new Error(data.message);
             };
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            
+            console.log(data.token)
         } catch (error) {
             console.error(error);
         }
     };
+
+    const { changeHandler, onSubmit, values } = useForm({
+        'username': '',
+        'password': ''
+    }, handleSubmit);
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
