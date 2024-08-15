@@ -1,3 +1,3 @@
 # React Exercise Project 
 
-This frontend project is designed to practice creating React applications by converting a pre-made HTML and CSS template into a dynamic React app.
+This React project is designed as a practical exercise to apply and consolidate everything learned during Season 4 of the Sirma Academy. The primary goal of the project is to deepen understanding and mastery of React concepts, rather than focusing on styling or layout design. As such, the emphasis is placed on the functionality and core principles of React, with minimal attention given to visual presentation.
