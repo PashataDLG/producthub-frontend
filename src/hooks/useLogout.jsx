@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/auth-context";
 
-export const useLogout = (setIsToken) => {
+export const useLogout = () => {
     const navigate = useNavigate();
+    const { setIsToken, getToken, removeToken } = useAuth();
 
     const logout = async () => {
-        const token = localStorage.getItem('token');
+        const token = getToken();
 
         if (!token) {
             throw new Error('There is no token!');
@@ -19,12 +21,11 @@ export const useLogout = (setIsToken) => {
                 }
             })
 
-            localStorage.removeItem('token');
+            removeToken();
             setIsToken(false);
             navigate('/');
         } catch (error) {
             console.error(error);
-
         }
     };
 
