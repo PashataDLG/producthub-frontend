@@ -1,5 +1,6 @@
 import { useForm } from '../../hooks/useForm';
 import { useAlert } from '../../hooks/useAlert';
+import { useAuth } from '../../context/auth-context';
 
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -31,6 +32,8 @@ export const Login = () => {
         setMessage,
         closeAlert } = useAlert();
 
+    const { addToken } = useAuth();
+
     const handleSubmit = async () => {
 
         try {
@@ -46,7 +49,7 @@ export const Login = () => {
             };
 
             const data = await response.json();
-            localStorage.setItem('token', data.token);
+            addToken(data.token);
 
             setOpen(true);
             setAlertSeverity('success');
