@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useLogout } from '../../hooks/useLogout';
 
 import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
     const [isToken, setIsToken] = useState(false);
+    
+    const logout = useLogout(setIsToken);
 
     useEffect(() => {
         const item = localStorage.getItem('token');
@@ -61,12 +64,12 @@ export const Navigation = () => {
                             <ul>
                                 {isToken ? (
                                     <li>
-                                        <a href="#">
+                                        <Link to="/logout" onClick={logout}>
                                             <span className="user_icon">
                                                 <i className="fa fa-user" aria-hidden="true" />
                                             </span>
                                             Logout
-                                        </a>
+                                        </Link>
                                     </li>
                                 ) : (
                                     <>
