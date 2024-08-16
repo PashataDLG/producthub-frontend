@@ -17,12 +17,6 @@ export const Home = () => {
             .then((resData) => setData(resData))
             .catch(err => console.error('There was an error: ' + err));
     }, []);
-
-    useEffect(() => {
-        if(data) {
-            console.log(data);
-        }
-    });
     
     return (
         <>
