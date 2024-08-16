@@ -1,19 +1,14 @@
-import { useEffect, useState } from 'react';
 import { useLogout } from '../../hooks/useLogout';
+import { useAuth } from '../../context/auth-context';
 
 import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
-    const [isToken, setIsToken] = useState(false);
+    const { isToken } = useAuth();
+    const logout = useLogout();
     
-    const logout = useLogout(setIsToken);
-
-    useEffect(() => {
-        const item = localStorage.getItem('token');
-
-        setIsToken(item !== null);
-    }, []);
-
+    console.log(isToken);
+    
     return (
         <div className="container-fluid">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
