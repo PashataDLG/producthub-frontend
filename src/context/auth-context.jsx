@@ -9,16 +9,22 @@ export const AuthProvider = ({ children }) => {
     };
     
     const removeToken = () => {
-        return localStorage.removeItem('token');
+        localStorage.removeItem('token');
+        setIsToken(false);
     };
+
+    const addToken = (token) => {
+        localStorage.setItem('token', token);
+        setIsToken(true);
+    }
     
     const [isToken, setIsToken] = useState(getToken() !== null);
 
     const authMethods = {
-        setIsToken,
         isToken,
         getToken,
         removeToken,
+        addToken,
     }
 
     return (
