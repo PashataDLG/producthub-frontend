@@ -3,7 +3,7 @@ import { useAuth } from "../context/auth-context";
 
 export const useLogout = () => {
     const navigate = useNavigate();
-    const { setIsToken, getToken, removeToken } = useAuth();
+    const { getToken, removeToken } = useAuth();
 
     const logout = async () => {
         const token = getToken();
@@ -22,7 +22,6 @@ export const useLogout = () => {
             })
 
             removeToken();
-            setIsToken(false);
             navigate('/');
         } catch (error) {
             console.error(error);
