@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 export const Navigation = () => {
     const { isToken } = useAuth();
     const logout = useLogout();
-    
-    console.log(isToken);
-    
+
     return (
         <div className="container-fluid">
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
