@@ -1,9 +1,13 @@
 import { createContext, useContext, useState, } from "react";
+import { useNavigate } from "react-router-dom";
+
+import * as authService from '../services/userService'
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    
+    const navigate = useNavigate();
+        
     const getToken = () => {
         return localStorage.getItem('token');
     };
@@ -17,6 +21,20 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', token);
         setIsToken(true);
     }
+
+    const onLoginSubmit = async (data) => {
+       const result = await authService.login(data);
+
+       addToken(result);
+
+       navigate('/');
+    };
+
+    const onRegister = async (data) => {
+        await authService.register(data);
+
+        navigate('/login');
+    }
     
     const [isToken, setIsToken] = useState(getToken() !== null);
 
@@ -25,6 +43,7 @@ export const AuthProvider = ({ children }) => {
         getToken,
         removeToken,
         addToken,
+        onLoginSubmit
     }
 
     return (
