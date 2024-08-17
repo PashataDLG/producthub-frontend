@@ -2,7 +2,7 @@ import { useForm } from '../../hooks/useForm';
 import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../context/auth-context';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -22,54 +22,12 @@ import { Snackbar, Alert } from '@mui/material';
 const defaultTheme = createTheme();
 
 export const Login = () => {
-    const navigate = useNavigate();
-    const {
-        open,
-        alertSeverity,
-        message,
-        setOpen,
-        setAlertSeverity,
-        setMessage,
-        closeAlert } = useAlert();
-
-    const { addToken } = useAuth();
-
-    const handleSubmit = async () => {
-
-        try {
-            const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(values)
-            });
-
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message);
-            };
-
-            const data = await response.json();
-            addToken(data.token);
-
-            setOpen(true);
-            setAlertSeverity('success');
-            setMessage('Successfully logged in!');
-
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
-
-        } catch (error) {
-            setAlertSeverity('error');
-            setMessage(`${error}`);
-            setOpen(true);
-        }
-    };
+    const { onLoginSubmit } = useAuth();
 
     const { changeHandler, onSubmit, values } = useForm({
         'username': '',
         'password': ''
-    }, handleSubmit);
+    }, onLoginSubmit);
 
 
     return (
@@ -142,7 +100,7 @@ export const Login = () => {
                     </Box>
                 </Box>
             </Container>
-            <Snackbar
+            {/* <Snackbar
                 onClose={closeAlert}
                 open={open}
                 autoHideDuration={10000}
@@ -151,7 +109,7 @@ export const Login = () => {
                 <Alert onClose={closeAlert} severity={alertSeverity} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
-            </Snackbar>
+            </Snackbar> */}
         </ThemeProvider>
     );
 }
