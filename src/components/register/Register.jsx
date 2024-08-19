@@ -1,6 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useAlert } from '../../hooks/useAlert';
+import { Link } from 'react-router-dom';
 import { useForm } from '../../hooks/useForm';
+import { useAuth } from '../../context/auth-context';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,67 +14,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Snackbar, Alert } from '@mui/material';
+// import { Snackbar, Alert } from '@mui/material';
 
 const defaultTheme = createTheme();
 
 export const Register = () => {
+    const { onRegister } = useAuth();
 
-    const {
-        open,
-        alertSeverity,
-        message,
-        setOpen,
-        setAlertSeverity,
-        setMessage,
-        closeAlert } = useAlert();
-
-
-    const navigate = useNavigate();
-
-    const submitHandler = async () => {
-
-        try {
-            const response = await fetch('https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            });
-
-            if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.message);
-            };
-
-            changeValues({
-                'username': '',
-                'password': ''
-            })
-
-            const data = await response.json();
-            console.log('Success: ', data);
-
-            setAlertSeverity('success');
-            setMessage(`Your have singed up successfully. You are welcome to log into your account!`);
-            setOpen(true);
-
-            setTimeout(() => {
-                navigate('/login');
-            }, 3000);
-
-        } catch (error) {
-            setAlertSeverity('error');
-            setMessage(`${error}`);
-            setOpen(true);
-        }
-    };
-
-    const { changeHandler, onSubmit, values, changeValues } = useForm({
+    const { changeHandler, onSubmit, values } = useForm({
         'username': '',
         'password': ''
-    }, submitHandler);
+    }, onRegister);
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -145,7 +95,7 @@ export const Register = () => {
                     </Box>
                 </Box>
             </Container>
-            <Snackbar
+            {/* <Snackbar
                 onClose={closeAlert}
                 open={open}
                 autoHideDuration={10000}
@@ -154,7 +104,7 @@ export const Register = () => {
                 <Alert onClose={closeAlert} severity={alertSeverity} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
-            </Snackbar>
+            </Snackbar> */}
         </ThemeProvider>
     );
 }
