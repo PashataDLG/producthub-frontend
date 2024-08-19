@@ -43,7 +43,8 @@ export const AuthProvider = ({ children }) => {
         getToken,
         removeToken,
         addToken,
-        onLoginSubmit
+        onLoginSubmit,
+        onRegister
     }
 
     return (
