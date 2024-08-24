@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = 'https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth';
 
-export default {
+const userService = {
     async login(data) {
         try {
             const result = await axios.post(`${baseUrl}/login`, data); // axios manually strigifies the data, and adds the content type
@@ -27,7 +27,7 @@ export default {
     },
 
     async logout(token) {
-        const result = await axios.post(`${baseUrl}/logout`, {
+        const result = await axios.post(`${baseUrl}/logout`, null, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `${token}`
@@ -37,3 +37,5 @@ export default {
         return result.data;
     }
 }
+
+export default userService;
