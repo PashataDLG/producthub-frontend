@@ -1,5 +1,4 @@
 import { useForm } from '../../hooks/useForm';
-import { useAlert } from '../../hooks/useAlert';
 import { useAuth } from '../../context/auth-context';
 
 import { Link } from 'react-router-dom';
@@ -16,7 +15,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Snackbar, Alert } from '@mui/material';
 
 
 const defaultTheme = createTheme();
