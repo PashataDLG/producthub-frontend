@@ -1,21 +1,39 @@
-import * as request from "../services/requester";
+import axios from "axios";
 
 const baseUrl = 'https://serene-ocean-15581-68c8bef9ec28.herokuapp.com/auth';
 
-export const login = async (data) => {
-    const result = await request.post(`${baseUrl}/login`, data);
-    
-    return result;
-};
+export default {
+    async login(data) {
+        try {
+            const result = await axios.post(`${baseUrl}/login`, data); // axios manually strigifies the data, and adds the content type
 
-export const register = async (data) => {
-    const result = await request.post(`${baseUrl}/register`, data);
+            return result.data; // axios return object, in which the property data holds the data returned from the server
+        } catch (error) {
+            console.error('Login failed: ', error);
+            throw error; // rethrow so it can be handled elsewhere
+        }
 
-    return result;
+    },
+
+    async register(data) {
+        try {
+            const result = await axios.post(`${baseUrl}/register`, data); // same as above
+
+            return result.data; // same as above
+        } catch (error) {
+            console.error('Login failed: ', error);
+            throw error; // same as above
+        }
+    },
+
+    async logout(token) {
+        const result = await axios.post(`${baseUrl}/logout`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`
+              }
+        });
+
+        return result.data;
+    }
 }
-
-export const logout = async () => {
-     const result = await request.post(`${baseUrl}/logout`, null);
-
-     return result;
-};
