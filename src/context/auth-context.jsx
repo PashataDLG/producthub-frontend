@@ -1,17 +1,19 @@
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../api/authApi";
 
-import * as authService from '../services/userService'
+// import * as authService from '../services/userService'
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    const { mutate: loginUser } = useLoginMutation();
     const navigate = useNavigate();
-        
+
     const getToken = () => {
         return localStorage.getItem('token');
     };
-    
+
     const removeToken = () => {
         localStorage.removeItem('token');
         setIsToken(false);
@@ -23,19 +25,25 @@ export const AuthProvider = ({ children }) => {
     }
 
     const onLoginSubmit = async (data) => {
-       const result = await authService.login(data);
+        try {
+            const result = await loginUser(data);
 
-       addToken(result);
+            addToken(result);
 
-       navigate('/');
+            navigate('/');
+        } catch (error) {
+            console.error('There was an errror: ', error);
+        }
+
     };
 
-    const onRegister = async (data) => {
-        await authService.register(data);
+    const onRegister = async () => {
+        console.log('da');
+        // await authService.register(data);
 
-        navigate('/login');
+        // navigate('/login');
     }
-    
+
     const [isToken, setIsToken] = useState(getToken() !== null);
 
     const authMethods = {
