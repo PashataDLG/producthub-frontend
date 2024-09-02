@@ -13,4 +13,16 @@ export const useLoginMutation = () => {
             console.error('Login failed: ', error);
         }
     })
+};
+
+export const useRegisterMutation = () => {
+    return useMutation({
+        mutationFn: userService.register,
+        onSuccess: (response) => {
+            return response.message;
+        },
+        onError: (error) => {
+            console.error(error);
+        }
+    })
 }
