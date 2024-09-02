@@ -7,7 +7,7 @@ import { useLoginMutation, useRegisterMutation } from "../api/authApi";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const { mutate: loginUser } = useLoginMutation();
+    const { mutateAsync: loginUser } = useLoginMutation();
     const { mutateAsync: registerUser } = useRegisterMutation();
 
     const navigate = useNavigate();
@@ -31,11 +31,16 @@ export const AuthProvider = ({ children }) => {
         try {
             const result = await loginUser(data);
 
-            addToken(result);
+            setAlert({ message: 'You have successfully logged in!', severity: 'success', open: true })
 
-            navigate('/');
+            setTimeout(() => {
+                addToken(result);
+
+                navigate('/');
+            }, 3000);
         } catch (error) {
-            console.error('There was an errror: ', error);
+            console.error('There was an errror:', error);
+            setAlert({ message: error.message, severity: 'error', open: true })
         }
 
     };
@@ -48,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
             setTimeout(() => {
                 navigate('/login');
-            }, 5000);
+            }, 3000);
         }
         catch (error) {
             console.error(error);
