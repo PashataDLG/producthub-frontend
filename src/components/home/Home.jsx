@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { AboutSection } from "./about-section/AboutSection";
+import { AboutSection } from './about-section/AboutSection'
 import { BlogSection } from "./blog-section/BlogSection";
 import { ClientSection } from "./client-section/ClientSection";
 import { CoffeeSection } from "./coffee-section/CoffeeSection";
