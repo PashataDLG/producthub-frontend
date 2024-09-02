@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../api/authApi";
+import { useLoginMutation, useRegisterMutation } from "../api/authApi";
 
 // import * as authService from '../services/userService'
 
@@ -8,7 +8,10 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const { mutate: loginUser } = useLoginMutation();
+    const { mutateAsync: registerUser } = useRegisterMutation();
+
     const navigate = useNavigate();
+    const [alert, setAlert] = useState({ message: '', severity: '', open: false });
 
     const getToken = () => {
         return localStorage.getItem('token');
@@ -37,16 +40,30 @@ export const AuthProvider = ({ children }) => {
 
     };
 
-    const onRegister = async () => {
-        console.log('da');
-        // await authService.register(data);
+    const onRegister = async (data) => {
+        try {
+            const result = await registerUser(data);
 
-        // navigate('/login');
+            setAlert({ message: result.message, severity: 'success', open: true });
+
+            setTimeout(() => {
+                navigate('/login');
+            }, 5000);
+        }
+        catch (error) {
+            console.error(error);
+            setAlert({ message: error.message, severity: 'error', open: true });
+            // console.log(alert);
+            // console.error('There is an error: ', error)
+        }
+
     }
 
     const [isToken, setIsToken] = useState(getToken() !== null);
 
     const authMethods = {
+        alert,
+        setAlert,
         isToken,
         getToken,
         removeToken,
