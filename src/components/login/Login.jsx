@@ -15,12 +15,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Snackbar, Alert } from '@mui/material';
 
 
 const defaultTheme = createTheme();
 
 export const Login = () => {
-    const { onLoginSubmit } = useAuth();
+    const { onLoginSubmit, alert, setAlert } = useAuth();
 
     const { changeHandler, onSubmit, values } = useForm({
         'username': '',
@@ -98,16 +99,19 @@ export const Login = () => {
                     </Box>
                 </Box>
             </Container>
-            {/* <Snackbar
-                onClose={closeAlert}
-                open={open}
-                autoHideDuration={10000}
+            <Snackbar
+                open={alert.open}  // taking the open property to check if the alert should be opened
+                autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert onClose={closeAlert} severity={alertSeverity} sx={{ width: '100%' }}>
-                    {message}
+                <Alert
+                    onClose={() => setAlert(prev => ({ ...prev, open: false }))} // Handle closing
+                    severity={alert.severity}
+                    sx={{ width: '100%' }}
+                >
+                    {alert.message}
                 </Alert>
-            </Snackbar> */}
+            </Snackbar>
         </ThemeProvider>
     );
 }
