@@ -21,8 +21,13 @@ const userService = {
 
             return result.data; // same as above
         } catch (error) {
-            console.error('Login failed: ', error);
-            throw error; // same as above
+            if (error.response && error.response.data) {
+                // Throw the error with the servers error message
+                throw new Error(error.response.data.message || 'Registration failed');
+            } else {
+                // Handle the case where no response was received
+                throw new Error(error.message || 'Registration failed');
+            }
         }
     },
 
