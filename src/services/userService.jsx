@@ -9,23 +9,28 @@ const userService = {
 
             return result.data; // axios return object, in which the property data holds the data returned from the server
         } catch (error) {
-            console.error('Login failed: ', error);
-            throw error; // rethrow so it can be handled elsewhere
+            if(error.response && error.response.data){
+                // Throw the error with the servers error message
+                throw new Error(error.response.data.message || 'Login failed');
+            } else {
+                // Handle the case where no response was received
+                throw new Error(error.message || 'Login failed')
+            }
         }
 
     },
 
     async register(data) {
         try {
-            const result = await axios.post(`${baseUrl}/register`, data); // same as above
+            const result = await axios.post(`${baseUrl}/register`, data); // Same as above
 
-            return result.data; // same as above
+            return result.data; // Same as above
         } catch (error) {
             if (error.response && error.response.data) {
-                // Throw the error with the servers error message
+                // Same as above
                 throw new Error(error.response.data.message || 'Registration failed');
             } else {
-                // Handle the case where no response was received
+                // Same as above
                 throw new Error(error.message || 'Registration failed');
             }
         }
