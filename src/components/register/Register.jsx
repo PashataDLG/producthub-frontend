@@ -99,10 +99,9 @@ export const Register = () => {
                 open={alert.open}  // taking the property to check if the alert should be opened
                 autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                onClose={() => setAlert({ ...alert, open: false })}  // Handle closing
             >
                 <Alert
-                    onClose={() => setAlert(prev => ({ ...prev, open: false }))}  // Handle closing
+                    onClose={() => setAlert(prev => ({ ...prev, open: false }))} // Handle closing
                     severity={alert.severity}
                     sx={{ width: '100%' }}
                 >
