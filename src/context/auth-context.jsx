@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useLougoutMutation, useRegisterMutation } from "../api/authApi";
-
-// import * as authService from '../services/userService'
 
 const AuthContext = createContext();
 
