@@ -101,7 +101,6 @@ export const Login = () => {
             </Container>
             <Snackbar
                 open={alert.open}  // taking the open property to check if the alert should be opened
-                autoHideDuration={2000}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
                 <Alert

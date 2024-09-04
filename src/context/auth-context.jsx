@@ -36,9 +36,9 @@ export const AuthProvider = ({ children }) => {
 
             setTimeout(() => {
                 addToken(token);
-
+                setAlert({ message: '', severity: '', open: false });
                 navigate('/');
-            }, 3000);
+            }, 1500);
         } catch (error) {
             console.error('There was an errror:', error);
             setAlert({ message: error.message, severity: 'error', open: true })
@@ -53,8 +53,9 @@ export const AuthProvider = ({ children }) => {
             setAlert({ message: result.message, severity: 'success', open: true });
 
             setTimeout(() => {
+                setAlert({ message: '', severity: '', open: false });
                 navigate('/login');
-            }, 3000);
+            }, 1500);
         }
         catch (error) {
             console.error(error);
@@ -72,7 +73,7 @@ export const AuthProvider = ({ children }) => {
             navigate('/');
         } catch (error) {
             console.error(error);
-            
+
         }
     }
 
