@@ -6,8 +6,8 @@ const userService = {
     async login(data) {
         try {
             const result = await axios.post(`${baseUrl}/login`, data); // axios manually strigifies the data, and adds the content type
-
-            return result.data; // axios return object, in which the property data holds the data returned from the server
+        
+            return result.data.token; // axios return object, in which the property data holds the data returned from the server
         } catch (error) {
             if(error.response && error.response.data){
                 // Throw the error with the servers error message
@@ -39,12 +39,11 @@ const userService = {
     async logout(token) {
         const result = await axios.post(`${baseUrl}/logout`, null, {
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${token}`
+                'Authorization': `Bearer ${token}`
               }
         });
 
-        return result.data;
+        return result;
     }
 }
 
