@@ -9,10 +9,12 @@ import { Coffees } from './components/coffees/Coffees';
 import { Contact } from './components/contact/Contact';
 import { Login } from './components/login/Login';
 import { Register } from './components/register/Register';
+import LoadingOverlay from './components/loading/Loading';
 
 function App() {
     return (
         <>
+            <LoadingOverlay />
             <Navigation />
             <main>
                 <Routes>
