@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation, useRegisterMutation } from "../api/authApi";
+import { useLoginMutation, useLougoutMutation, useRegisterMutation } from "../api/authApi";
 
 // import * as authService from '../services/userService'
 
@@ -9,6 +9,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const { mutateAsync: loginUser } = useLoginMutation();
     const { mutateAsync: registerUser } = useRegisterMutation();
+    const { mutateAsync: logoutUser, isLoading: isLogoutLoading } = useLougoutMutation();
 
     const navigate = useNavigate();
     const [alert, setAlert] = useState({ message: '', severity: '', open: false });
@@ -29,12 +30,12 @@ export const AuthProvider = ({ children }) => {
 
     const onLoginSubmit = async (data) => {
         try {
-            const result = await loginUser(data);
+            const token = await loginUser(data);
 
             setAlert({ message: 'You have successfully logged in!', severity: 'success', open: true })
 
             setTimeout(() => {
-                addToken(result);
+                addToken(token);
 
                 navigate('/');
             }, 3000);
@@ -58,10 +59,21 @@ export const AuthProvider = ({ children }) => {
         catch (error) {
             console.error(error);
             setAlert({ message: error.message, severity: 'error', open: true });
-            // console.log(alert);
-            // console.error('There is an error: ', error)
         }
 
+    }
+
+    const onLogout = async () => {
+        try {
+            const token = getToken();
+            const result = await logoutUser(token);
+            console.log(result.data.message);
+            removeToken();
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+            
+        }
     }
 
     const [isToken, setIsToken] = useState(getToken() !== null);
@@ -74,7 +86,9 @@ export const AuthProvider = ({ children }) => {
         removeToken,
         addToken,
         onLoginSubmit,
-        onRegister
+        onRegister,
+        onLogout,
+        isLogoutLoading
     }
 
     return (
