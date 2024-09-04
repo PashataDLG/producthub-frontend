@@ -1,11 +1,9 @@
-import { useLogout } from '../../hooks/useLogout';
 import { useAuth } from '../../context/auth-context';
 
 import { Link } from 'react-router-dom';
 
 export const Navigation = () => {
-    const { isToken } = useAuth();
-    const logout = useLogout();
+    const { isToken, onLogout } = useAuth();
 
     return (
         <div className="container-fluid">
@@ -57,7 +55,7 @@ export const Navigation = () => {
                             <ul>
                                 {isToken ? (
                                     <li>
-                                        <Link to="/logout" onClick={logout}>
+                                        <Link to="/logout" onClick={onLogout}>
                                             <span className="user_icon">
                                                 <i className="fa fa-user" aria-hidden="true" />
                                             </span>
@@ -68,9 +66,6 @@ export const Navigation = () => {
                                     <>
                                         <li>
                                             <Link to="/login">
-                                                {/* <span className="user_icon">
-                                         <i className="fa fa-user" aria-hidden="true" />
-                                     </span> */}
                                                 Login
                                             </Link>
                                         </li>
