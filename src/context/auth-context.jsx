@@ -67,8 +67,8 @@ export const AuthProvider = ({ children }) => {
     const onLogout = async () => {
         try {
             const token = getToken();
-            const result = await logoutUser(token);
-            console.log(result.data.message);
+            await logoutUser(token);
+
             removeToken();
             navigate('/');
         } catch (error) {
