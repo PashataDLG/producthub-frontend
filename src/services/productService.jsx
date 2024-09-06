@@ -12,6 +12,23 @@ const productService = {
             console.error('There was an error: ', error);
         }
     },
+
+    async addProduct(productData) {
+        try {
+            const authToken = localStorage.getItem('token');
+            
+            const response = await axios.post(baseUrl, productData, {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                  }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            
+        }
+    }
 }
 
 export default productService;
