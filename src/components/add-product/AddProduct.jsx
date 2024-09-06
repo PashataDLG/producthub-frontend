@@ -1,7 +1,15 @@
+import { useProduct } from '../../context/product-context';
+import { useForm } from '../../hooks/useForm';
 import { Container, Box, Typography, TextField, Button, Grid } from '@mui/material';
 
 const AddProduct = () => {
-    
+    const { onAddProduct } = useProduct();
+
+    const { changeHandler, onSubmit, values } = useForm({
+        name: '',
+        price: 0,
+        quantity: 0
+    }, onAddProduct);
 
     return (
         <Container maxWidth="sm" sx={{ paddingTop: 4 }}>
@@ -17,48 +25,41 @@ const AddProduct = () => {
                     backgroundColor: '#fff',
                 }}
             >
-                <form>
+                <form onSubmit={onSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 label="Product Name"
-                                name="productName"
-                                value=""
+                                name="name"
                                 variant="outlined"
                                 sx={{ marginBottom: 2 }}
+                                value={values['name']}
+                                onChange={changeHandler}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 label="Product Price"
-                                name="productPrice"
-                                value=""
-                                variant="outlined"
+                                name="price"
                                 type="number"
                                 sx={{ marginBottom: 2 }}
+                                variant="outlined"
+                                value={values['price']}
+                                onChange={changeHandler}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
                                 label="Product Quantity"
-                                name="productQuantity"
-                                value=""
+                                name="quantity"
                                 variant="outlined"
                                 type="number"
                                 sx={{ marginBottom: 2 }}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                label="Product Image"
-                                name="productImg"
-                                value=""
-                                variant="outlined"
-                                sx={{ marginBottom: 2 }}
+                                value={values['quantity']}
+                                onChange={changeHandler}
                             />
                         </Grid>
                         <Grid item xs={12}>
