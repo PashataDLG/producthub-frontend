@@ -30,6 +30,19 @@ export const AuthProvider = ({ children }) => {
         setIsToken(true);
     }
 
+    const isTokenExpired = () => {
+        const token = getToken();
+        
+        if (!token) {
+            return false;
+        }
+        const decodedToken = jwtDecode(token);
+
+        const timeNow = Math.floor(Date.now() / 1000);
+
+        return decodedToken.exp < timeNow;
+    }
+
     const onLoginSubmit = async (data) => {
         try {
             const token = await loginUser(data);
@@ -69,16 +82,6 @@ export const AuthProvider = ({ children }) => {
     const onLogout = async () => {
         try {
             const token = getToken();
-
-            const decodedToken = jwtDecode(token);
-            const timeNow = Math.floor(Date.now() / 1000);
-
-            if (decodedToken.exp < timeNow) {
-                removeToken();
-                navigate('/');
-                return;
-            }
-
             await logoutUser(token);
 
             removeToken();
@@ -101,7 +104,8 @@ export const AuthProvider = ({ children }) => {
         onLoginSubmit,
         onRegister,
         onLogout,
-        isLogoutLoading
+        isLogoutLoading,
+        isTokenExpired
     }
 
     return (

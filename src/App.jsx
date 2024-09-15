@@ -1,4 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
+
+import { useAuth } from './context/auth-context';
+
 import { Navigation } from './components/navigation/Navigation';
 import { Home } from './components/home/Home';
 import { Footer } from './components/footer/Footer';
@@ -12,6 +15,10 @@ import LoadingOverlay from './components/loading/Loading';
 import AddProduct from './components/add-product/AddProduct';
 
 function App() {
+    const { isTokenExpired, removeToken } = useAuth();
+
+    if (isTokenExpired) { console.log(true); removeToken(); };
+
     return (
         <>
             <LoadingOverlay />
@@ -24,7 +31,7 @@ function App() {
                     <Route path='/about' element={<About />} />
                     <Route path='/coffees' element={<Coffees />} />
                     <Route path='/contact' element={<Contact />} />
-                    <Route path='/add-product' element={<AddProduct />}/>
+                    <Route path='/add-product' element={<AddProduct />} />
                 </Routes>
                 <Footer />
                 <Copyright />
