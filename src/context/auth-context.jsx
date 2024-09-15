@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
+import { jwtDecode } from "jwt-decode";
+
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useLougoutMutation, useRegisterMutation } from "../api/authApi";
@@ -67,6 +69,16 @@ export const AuthProvider = ({ children }) => {
     const onLogout = async () => {
         try {
             const token = getToken();
+
+            const decodedToken = jwtDecode(token);
+            const timeNow = Math.floor(Date.now() / 1000);
+
+            if (decodedToken.exp < timeNow) {
+                removeToken();
+                navigate('/');
+                return;
+            }
+
             await logoutUser(token);
 
             removeToken();
