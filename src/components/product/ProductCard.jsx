@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 
 
 const ProductCard = ({ product }) => (
@@ -19,6 +19,13 @@ const ProductCard = ({ product }) => (
             <Typography variant="body2" color="text.secondary">
                 Quantity: {product.quantity}
             </Typography>
+            <Button
+                variant="outlined"
+                color="error"
+                sx={{ marginTop: '8px' }}
+            >
+                Delete
+            </Button>
         </CardContent>
     </Card>
 );
