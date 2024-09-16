@@ -21,7 +21,7 @@ export const ProductProvider = ({ children }) => {
         try {
             await addProduct(productData);
             
-            navigate('/');
+            navigate('/products');
         } catch (error) {
             console.error(error);
         }
