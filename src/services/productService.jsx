@@ -28,6 +28,22 @@ const productService = {
             console.error(error);
             
         }
+    },
+
+    async deleteProduct(productId) {
+        try {
+            const authToken = localStorage.getItem('token');
+
+            const response = await axios.delete(`${baseUrl}/${productId}}`, null, {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            })
+
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
 
