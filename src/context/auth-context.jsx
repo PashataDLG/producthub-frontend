@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
     const isTokenExpired = () => {
         const token = getToken();
-        
+
         if (!token) {
             return false;
         }
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
         const timeNow = Math.floor(Date.now() / 1000);
 
-        return decodedToken.exp < timeNow;
+        return timeNow > decodedToken.exp ? true : false;
     }
 
     const onLoginSubmit = async (data) => {

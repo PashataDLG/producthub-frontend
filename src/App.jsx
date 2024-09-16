@@ -17,7 +17,7 @@ import AddProduct from './components/add-product/AddProduct';
 function App() {
     const { isTokenExpired, removeToken } = useAuth();
 
-    if (isTokenExpired) { console.log(true); removeToken(); };
+    if (isTokenExpired()) { removeToken(); };
 
     return (
         <>
