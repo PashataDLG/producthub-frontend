@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient  } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import productService from "../services/productService";
 
 export const useFetchProducts = () => {
@@ -19,7 +19,21 @@ export const useAddProductMutation = () => {
         },
         onError: (error) => {
             console.error(error);
-            
         }
     })
-} ;
+};
+
+export const useDeleteProductMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: () => productService.deleteProduct,
+        onSuccess: (response) => {
+            queryClient.invalidateQueries('products');
+            return response;
+        },
+        onError: (error) => {
+            console.error(error);
+        }
+    });
+};
