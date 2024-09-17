@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import { useFetchProducts, useAddProductMutation, useDeleteProductMutation } from "../api/productApi";
 import { useNavigate } from "react-router-dom";
+import { useAlert } from "./alert-context";
 
 
 const ProductContext = createContext();
@@ -12,6 +13,7 @@ export const ProductProvider = ({ children }) => {
     const { mutateAsync: addProduct } = useAddProductMutation();
     const { mutateAsync: deleteProduct } = useDeleteProductMutation();
 
+    const { setAlert } = useAlert();
     const navigate = useNavigate();
 
     const getProducts = () => {
@@ -22,7 +24,12 @@ export const ProductProvider = ({ children }) => {
         try {
             await addProduct(productData);
 
-            navigate('/products');
+            setAlert({ message: 'Product successfully created', severity: 'success', open: true })
+
+            setTimeout(() => {
+                setAlert({ message: '', severity: '', open: false })
+                navigate('/products');
+            }, 1500);
         } catch (error) {
             console.error(error);
         }
@@ -35,7 +42,7 @@ export const ProductProvider = ({ children }) => {
             navigate('/products');
         } catch (error) {
             console.error(error);
-            
+
         }
     }
 
