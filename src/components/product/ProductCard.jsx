@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import { useProduct } from '../../context/product-context';
+import { useAuth } from '../../context/auth-context';
 
 
 const ProductCard = ({ product }) => {
+    const { isToken } = useAuth();
     const { onDeleteProduct } = useProduct();
+
 
     return (
         <Card sx={{ maxWidth: 345, margin: '16px' }}>
@@ -23,7 +26,7 @@ const ProductCard = ({ product }) => {
                 <Typography variant="body2" color="text.secondary">
                     Quantity: {product.quantity}
                 </Typography>
-                <Button
+                {isToken ? <Button
                     variant="outlined"
                     color="error"
                     sx={{ marginTop: '8px' }}
@@ -31,6 +34,8 @@ const ProductCard = ({ product }) => {
                 >
                     Delete
                 </Button>
+                    :
+                    ''}
             </CardContent>
         </Card>
     );
