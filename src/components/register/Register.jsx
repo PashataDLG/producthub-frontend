@@ -15,11 +15,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Snackbar, Alert } from '@mui/material';
+import { useAlert } from '../../context/alert-context';
 
 const defaultTheme = createTheme();
 
 export const Register = () => {
-    const { onRegister, alert, setAlert } = useAuth();
+    const { alert, setAlert } = useAlert();
+    const { onRegister } = useAuth();
 
     const { changeHandler, onSubmit, values } = useForm({
         'username': '',

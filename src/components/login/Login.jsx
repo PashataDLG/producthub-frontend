@@ -1,5 +1,6 @@
 import { useForm } from '../../hooks/useForm';
 import { useAuth } from '../../context/auth-context';
+import { useAlert } from '../../context/alert-context';
 
 import { Link } from 'react-router-dom';
 
@@ -21,7 +22,8 @@ import { Snackbar, Alert } from '@mui/material';
 const defaultTheme = createTheme();
 
 export const Login = () => {
-    const { onLoginSubmit, alert, setAlert } = useAuth();
+    const { onLoginSubmit } = useAuth();
+    const { alert, setAlert } = useAlert();
 
     const { changeHandler, onSubmit, values } = useForm({
         'username': '',
