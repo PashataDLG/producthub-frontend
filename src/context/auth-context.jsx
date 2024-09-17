@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useLougoutMutation, useRegisterMutation } from "../api/authApi";
+import { useAlert } from "./alert-context";
 
 const AuthContext = createContext();
 
@@ -14,7 +15,8 @@ export const AuthProvider = ({ children }) => {
     const { mutateAsync: logoutUser, isLoading: isLogoutLoading } = useLougoutMutation();
 
     const navigate = useNavigate();
-    const [alert, setAlert] = useState({ message: '', severity: '', open: false });
+
+    const {  setAlert } = useAlert();
 
     const getToken = () => {
         return localStorage.getItem('token');
@@ -95,8 +97,6 @@ export const AuthProvider = ({ children }) => {
     const [isToken, setIsToken] = useState(getToken() !== null);
 
     const authMethods = {
-        alert,
-        setAlert,
         isToken,
         getToken,
         removeToken,
