@@ -37,12 +37,17 @@ export const ProductProvider = ({ children }) => {
 
     const onDeleteProduct = async (productId) => {
         try {
-            await deleteProduct(productId);
+           const response = await deleteProduct(productId);
+           console.log(response);
+           
+            setAlert({ message: response.message, severity: 'success', open: true });
 
-            navigate('/products');
+            setTimeout(() => {
+                setAlert({ message: '', severity: '', open: false });
+                navigate('/products');
+            }, 2500);
         } catch (error) {
             console.error(error);
-
         }
     }
 
