@@ -16,17 +16,16 @@ const productService = {
     async addProduct(productData) {
         try {
             const authToken = localStorage.getItem('token');
-            
+
             const response = await axios.post(baseUrl, productData, {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
-                  }
+                }
             });
 
             return response.data;
         } catch (error) {
             console.error(error);
-            
         }
     },
 
@@ -34,7 +33,7 @@ const productService = {
         try {
             const authToken = localStorage.getItem('token');
 
-            const response = await axios.delete(`${baseUrl}/${productId}}`, null, {
+            const response = await axios.delete(`${baseUrl}/${productId}`, {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }
