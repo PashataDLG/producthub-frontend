@@ -23,6 +23,21 @@ export const useAddProductMutation = () => {
     })
 };
 
+export const useEditProductMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: productService.editProduct,
+        onSuccess: (response) => {
+            queryClient.invalidateQueries('products');
+            return response;
+        },
+        onError: (error) => {
+            console.error(error);
+        }
+    });
+};
+
 export const useDeleteProductMutation = () => {
     const queryClient = useQueryClient();
 
