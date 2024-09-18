@@ -26,14 +26,24 @@ const ProductCard = ({ product }) => {
                 <Typography variant="body2" color="text.secondary">
                     Quantity: {product.quantity}
                 </Typography>
-                {isToken ? <Button
-                    variant="outlined"
-                    color="error"
-                    sx={{ marginTop: '8px' }}
-                    onClick={() => onDeleteProduct(product._id)}
-                >
-                    Delete
-                </Button>
+                {isToken ? (<>
+                    <Button
+                        variant="outlined"
+                        color="error"
+                        sx={{ marginTop: '8px' }}
+                        onClick={() => onDeleteProduct(product._id)}
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="success"
+                        sx={{ marginTop: '8px', marginLeft: '10px' }}
+                        onClick={() => console.log('editvame bate!!!')}
+                    >
+                        Edit
+                    </Button>
+                </>)
                     :
                     ''}
             </CardContent>
