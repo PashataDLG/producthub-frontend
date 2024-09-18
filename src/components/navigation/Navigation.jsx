@@ -39,11 +39,15 @@ export const Navigation = () => {
                                 Products
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/add-product">
-                                Add Product
-                            </Link>
-                        </li>
+                        {isToken
+                            ?
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/add-product">
+                                    Add Product
+                                </Link>
+                            </li>
+                            :
+                            ''}
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">
                                 Contact
