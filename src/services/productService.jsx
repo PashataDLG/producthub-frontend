@@ -29,6 +29,22 @@ const productService = {
         }
     },
 
+    async editProduct(productId, productData) {
+        try {
+            const authToken = localStorage.getItem('token');
+
+            const response = await axios.put(`${baseUrl}/${productId}`, productData, {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async deleteProduct(productId) {
         try {
             const authToken = localStorage.getItem('token');
@@ -44,6 +60,7 @@ const productService = {
             console.error(error);
         }
     }
+    
 }
 
 export default productService;
