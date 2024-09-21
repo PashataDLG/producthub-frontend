@@ -13,6 +13,7 @@ import { Register } from './components/register/Register';
 import LoadingOverlay from './components/loading/Loading';
 import AddProduct from './components/add-product/AddProduct';
 import ProductList from './components/product/ProductList';
+import EditProduct from './components/edit-product/EditProduct';
 
 function App() {
     const { isTokenExpired, removeToken } = useAuth();
@@ -32,6 +33,7 @@ function App() {
                     <Route path='/products' element={<ProductList />} />
                     <Route path='/contact' element={<Contact />} />
                     <Route path='/add-product' element={<AddProduct />} />
+                    <Route path='/edit-product/:id' element={<EditProduct />} />
                 </Routes>
                 <Footer />
                 <Copyright />
