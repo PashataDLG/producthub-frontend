@@ -8,6 +8,16 @@ export const useFetchProducts = () => {
     });
 };
 
+export const useFetchProduct = (productId) => {
+    return useQuery({
+        queryKey: ['product', productId],
+        queryFn: () => productService.getProduct(productId),
+        enabled: !!productId,
+        staleTime: 60000,
+        cacheTime: 300000
+    });
+}
+
 export const useAddProductMutation = () => {
     const queryClient = useQueryClient();
 
