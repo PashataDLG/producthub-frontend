@@ -1,13 +1,19 @@
 /* eslint-disable react/prop-types */
+import { useNavigate } from 'react-router-dom';
+
 import { Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import { useProduct } from '../../context/product-context';
 import { useAuth } from '../../context/auth-context';
 
 
 const ProductCard = ({ product }) => {
-    const { isToken } = useAuth();
-    const { onDeleteProduct } = useProduct();
+    const navigate = useNavigate();
 
+    const { isToken } = useAuth();
+
+    const handleEditClick = () => {
+        navigate(`/edit-product/${product._id}`);
+    };
 
     return (
         <Card sx={{ maxWidth: 345, margin: '16px' }}>
@@ -39,7 +45,7 @@ const ProductCard = ({ product }) => {
                         variant="outlined"
                         color="success"
                         sx={{ marginTop: '8px', marginLeft: '10px' }}
-                        onClick={() => console.log('editvame bate!!!')}
+                        onClick={handleEditClick}
                     >
                         Edit
                     </Button>
