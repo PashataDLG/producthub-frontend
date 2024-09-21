@@ -1,5 +1,7 @@
+import { useParams } from 'react-router-dom';
 import { useAlert } from '../../context/alert-context';
 import { useProduct } from '../../context/product-context';
+import { useFetchProduct } from '../../api/productApi'; // добави import
 import { useForm } from '../../hooks/useForm';
 import {
     Container,
@@ -13,20 +15,24 @@ import {
 } from '@mui/material';
 
 const EditProduct = () => {
-    const { onAddProduct } = useProduct();
+    const { onEditProduct } = useProduct();
     const { alert, setAlert } = useAlert();
+    const { id } = useParams();
+    const { data: product } = useFetchProduct(id);
 
-    const { changeHandler, onSubmit, values } = useForm({
-        name: '',
-        price: 0,
-        quantity: 0
-    }, onAddProduct);
+    const { changeHandler, onSubmit, values } = useForm(
+        product ? 
+        { name: product.name, price: product.price, quantity: product.quantity, _id: product._id } 
+        : 
+        { name: '', price: '', quantity: '', _id: '' },
+        onEditProduct,
+    );
 
     return (
         <>
             <Container maxWidth="sm" sx={{ paddingTop: 4 }}>
                 <Typography variant="h4" gutterBottom>
-                    Add Product
+                    Edit Product
                 </Typography>
                 <Box
                     sx={{
@@ -93,11 +99,11 @@ const EditProduct = () => {
                 </Box>
             </Container>
             <Snackbar
-                open={alert.open}  // taking the open property to check if the alert should be opened
+                open={alert.open}
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
                 <Alert
-                    onClose={() => setAlert(prev => ({ ...prev, open: false }))} // Handle closing
+                    onClose={() => setAlert(prev => ({ ...prev, open: false }))}
                     severity={alert.severity}
                     sx={{ width: '100%' }}
                 >
