@@ -13,6 +13,16 @@ const productService = {
         }
     },
 
+    async getProduct(productId) {
+        try {
+            const response = await axios.get(`${baseUrl}/${productId}`);
+
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
     async addProduct(productData) {
         try {
             const authToken = localStorage.getItem('token');
@@ -29,11 +39,13 @@ const productService = {
         }
     },
 
-    async editProduct(productId, productData) {
+    async editProduct(productData) {
         try {
             const authToken = localStorage.getItem('token');
 
-            const response = await axios.put(`${baseUrl}/${productId}`, productData, {
+            const { _id, ...product} = productData;
+            
+            const response = await axios.put(`${baseUrl}/${_id}`, product, {
                 headers: {
                     'Authorization': `Bearer ${authToken}`
                 }
