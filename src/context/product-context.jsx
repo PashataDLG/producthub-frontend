@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext } from "react";
-import { useFetchProducts, useAddProductMutation, useDeleteProductMutation, useEditProductMutation } from "../api/productApi";
+import { useFetchProducts, useAddProductMutation, useDeleteProductMutation, useEditProductMutation, useFetchProduct } from "../api/productApi";
 import { useNavigate } from "react-router-dom";
 import { useAlert } from "./alert-context";
 
@@ -39,7 +39,7 @@ export const ProductProvider = ({ children }) => {
     const onDeleteProduct = async (productId) => {
         try {
             const response = await deleteProduct(productId);
-            console.log(response);
+
 
             setAlert({ message: response.message, severity: 'success', open: true });
 
@@ -52,20 +52,21 @@ export const ProductProvider = ({ children }) => {
         }
     }
 
-    const onEditProduct = async (productId, productData) => {
+    const onEditProduct = async (productData) => {
         try {
-            const response = await editProduct(productId, productData);
-            console.log(response);
+            await editProduct(productData);
+
+            navigate('/products');
         } catch (error) {
             console.error(error);
         }
     };
 
     const productMethods = {
-        getProducts,
         onAddProduct,
         onDeleteProduct,
-        onEditProduct
+        onEditProduct,
+        getProducts
     };
 
     return (
